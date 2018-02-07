@@ -144,13 +144,13 @@ public class JSONtoXML {
         boolean esc = false;
         while ((c=(char)re.read()) != EOFC) {
             switch (c) {
+                case '\\':
+                   esc = true;
+                   break;
                 case '"':
                     if (!esc) {
                         return b.toString();
                     }
-                case '\\':
-                   esc = true;
-                   break;
                 default:
                     b.append(c);
                     esc=false;
@@ -159,7 +159,7 @@ public class JSONtoXML {
         return b.toString();
     }
 
-    protected static void translateValue(InputStreamReader re, OutputStream out, String tname) 
+    protected static boolean translateValue(InputStreamReader re, OutputStream out, String tname) 
             throws IOException, JSONtoXMLFormatException
     {
         char c;
@@ -167,28 +167,31 @@ public class JSONtoXML {
             switch (c) {
                 case '[':
                     translateArray(re, out, tname);
-                    return;
+                    return false;
                 case '{':
                     translateObject(re, out);
-                    return;
+                    return false;
                 case '"':
                     String v = readStringToken(re);
                     outs(out,v);
-                    return;
+                    return false;
                 case 'n':
                     re.read(); // u
                     re.read(); // l
                     re.read(); // l
-                    return;
+                    return false;
                 case ' ':
                     break;
+                case '}':
+                    return true;
                 case ',':
-                    return;
+                    return false;
                 default:
                     outc(out,c);
                     break;
             }
         }
+        return false;
     }
     
     protected static void outs(OutputStream out, String s) 
@@ -236,11 +239,14 @@ public class JSONtoXML {
                         out.write(field.getBytes());
                         out.write(">".getBytes());
                     }
-                    translateValue(re,out, field);
+                    boolean eoo = translateValue(re,out, field);
                     if (field!=null) {
                         out.write("</".getBytes());
                         out.write(field.getBytes());
                         out.write(">".getBytes());
+                    }
+                    if (eoo) {
+                       return;
                     }
                     break;
                 case '"':
