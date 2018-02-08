@@ -15,4 +15,5 @@ Default PostgreSQL build does not contain any API for XML support it has only JS
 JSONtoXML utility class from this project preserve attribute order in JSON source during XML document generation and correctly transforms null value to the tag with empty content. You can use json_object (not jsonb!) API functions to generate JSON text and translate it to XML as document not as data.
 Also JSONtoXML does not build JSON object attribute map during conversion and you does not have unneeded long live objects with document copy.
 
-
+## License
+This code licensed as limited FPL (FPL with some small limitations aka sanctions). Read please LICENSE.md about details. If you interested in commercial support or commercial extension of this code write please to inl@yandex.com a request of commercial suggestion.
