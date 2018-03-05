@@ -147,6 +147,30 @@ public class JSONtoXML {
                 case '\\':
                    esc = true;
                    break;
+                case 'n':
+                   if (!esc) {
+                   	   b.append(c);
+                   } else {
+					   b.append((char)10);
+					   esc=false;
+                   }
+                   break;
+                case 'r':
+                   if (!esc) {
+                   	   b.append(c);
+                   } else {
+					   b.append((char)13);
+					   esc=false;
+                   }
+                   break;
+                case 't':
+                   if (!esc) {
+                   	   b.append(c);
+                   } else {
+					   b.append((char)9);
+					   esc=false;
+                   }
+                   break;
                 case '"':
                     if (!esc) {
                         return b.toString();

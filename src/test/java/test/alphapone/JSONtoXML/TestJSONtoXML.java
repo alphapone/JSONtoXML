@@ -26,6 +26,7 @@ public class TestJSONtoXML {
      checkTranslate("{\"a\":\"b\"}","<a>b</a>");
      checkTranslate("{\"a\":[{\"b\":0},{\"c\":1}]}","<a><b>0</b></a><a><c>1</c></a>"); 
      checkTranslate("{\"a\":[{\"b\":\"OOO \\\"Ochki i linzy po puti\\\"\"},{\"c\":1}]}","<a><b>OOO &quot;Ochki i linzy po puti&quot;</b></a><a><c>1</c></a>"); 
+     checkTranslate("{\"a\":[{\"b\":\"OOO \\\r\\\n\\\"Ochki i linzy po puti\\\"\"},{\"c\":1}]}","<a><b>OOO \r\n&quot;Ochki i linzy po puti&quot;</b></a><a><c>1</c></a>"); 
   }
 
 }
