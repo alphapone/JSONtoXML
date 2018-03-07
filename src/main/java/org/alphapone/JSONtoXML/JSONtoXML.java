@@ -171,6 +171,20 @@ public class JSONtoXML {
 					   esc=false;
                    }
                    break;
+                case 'u':
+                   if (!esc) {
+                   	   b.append(c);
+                   } else {
+                   	   StringBuilder sb = new StringBuilder(6);
+                   	   sb.append("0x");
+                   	   sb.append((char)re.read());
+                   	   sb.append((char)re.read());
+                   	   sb.append((char)re.read());
+                   	   sb.append((char)re.read());
+                   	   b.append((char)Integer.decode(sb.toString()).intValue());
+					   esc=false;
+                   }
+                   break;
                 case '"':
                     if (!esc) {
                         return b.toString();
