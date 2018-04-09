@@ -20,7 +20,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
- * Utility methids for conversion JSON object to XML document
+ * Utility class contains some methods for conversion JSON object to XML document
+ * It translates input stream to output stream so it can translate very large objects to XML.
  * @author alphapone{inl@yandex.com}
  */
 public class JSONtoXML {
